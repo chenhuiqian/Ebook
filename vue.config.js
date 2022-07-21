@@ -1,3 +1,14 @@
+// function mock(app,url,data){
+//   app.get(url,(request,response) =>{
+//     response.json(data)
+//   })
+// }
+
+// const homeData = require('./src/mock/bookHome')
+// const shelfData = require('./src/mock/bookShelf')
+// const listData = require('./src/mock/bookList')
+// const flatListData = require('./src/mock/bookFlatList')
+
 module.exports = {
   publicPath: '/',//配置项目路径
   outputDir: 'dist',//构建输出目录，默认目录dist
@@ -5,6 +16,12 @@ module.exports = {
   lintOnSave: false, //是否开启eslint检测,false不开启，有效值：true || false
   productionSourceMap: true,//生产环境下面开启sourceMap用于代码的调试true开启，false关闭
   devServer: {
+    // before(app){
+    //   mock(app,'/book/home',homeData)
+    //   mock(app,'/book/shelf',shelfData)
+    //   mock(app,'/book/list',listData)
+    //   mock(app,'/book/flat-list',flatListData)
+    // },
     open: true, //是否运行项目自动打开默认浏览器
     host: "127.0.0.1",//主机，0.0.0.0支持局域网地址，可以用真机测试
     port: 8080, //端口

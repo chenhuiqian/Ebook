@@ -18,8 +18,7 @@ const book = {
     paginate: '',
     pagelist: null,
     offsetY: 0,
-    isBookmark: null,
-    // speakingIconBottom: realPx(58)
+    isBookmark: null
   },
   mutations: {
     'SET_FILENAME': (state, fileName) => {
@@ -78,9 +77,6 @@ const book = {
     },
     'SET_IS_BOOKMARK': (state, isBookmark) => {
       state.isBookmark = isBookmark
-    },
-    'SET_SPEAKING_ICON_BOTTOM': (state, speakingIconBottom) => {
-      state.speakingIconBottom = speakingIconBottom
     }
   }
 }
