@@ -28,6 +28,7 @@ import {
   saveTheme,
 } from "../../utils/localStorage";
 import { flatten } from "@/utils/book";
+import { getLocalForage } from "@/utils/localForage";
 global.epub = Epub;
 export default {
   mixins: [ebookMixin],
@@ -243,10 +244,7 @@ export default {
       });
     },
 
-    initEpub() {
-      const url =
-        process.env.VUE_APP_RES_URL + "/epub/" + this.fileName + ".epub";
-      // console.log(url)
+    initEpub(url) {
       this.book = new Epub(url);
       this.setCurrentBook(this.book);
       this.initRendition();
@@ -258,7 +256,7 @@ export default {
           return this.book.locations.generate(
             750 * (window.innerWidth / 375) * (getFontSize(this.fileName) / 16)
           );
-        })  // 页码数
+        }) // 页码数
         .then((locations) => {
           this.navigation.forEach((nav) => {
             nav.pagelist = [];
@@ -273,15 +271,15 @@ export default {
                 }
               }
             });
-            let currentPage = 1
-            this.navigation.forEach((nav,index)=>{
-              if(index === 0){
-                nav.currentPage=1
-              }else{
-                nav.page = currentPage
+            let currentPage = 1;
+            this.navigation.forEach((nav, index) => {
+              if (index === 0) {
+                nav.currentPage = 1;
+              } else {
+                nav.page = currentPage;
               }
-              currentPage += nav.pagelist.length + 1
-            })
+              currentPage += nav.pagelist.length + 1;
+            });
           });
           // console.log(this.navigation);
           // console.log(locations); //打印的为页数
@@ -291,11 +289,25 @@ export default {
     },
   },
   mounted() {
-    this.setFileName(this.$route.params.fileName.split("|").join("/")).then(
-      () => {
-        this.initEpub();
+    const books = this.$route.params.fileName.split("|");
+    const fileName = books[1];
+    getLocalForage(fileName, (err, blob) => {
+      if (!err && blob) {
+        console.log("找到离线缓存电子书");
+        this.setFileName(books.join("/")).then(() => {
+          this.initEpub(blob);
+        });
+      } else {
+        console.log("在线获取电子书");
+        this.setFileName(books.join("/")).then(
+          () => {
+            const url =
+              process.env.VUE_APP_RES_URL + "/epub/" + this.fileName + ".epub";
+            this.initEpub(url);
+          }
+        );
       }
-    );
+    });
   },
 };
 </script>

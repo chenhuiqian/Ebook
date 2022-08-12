@@ -16,17 +16,17 @@ module.exports = {
   lintOnSave: false, //是否开启eslint检测,false不开启，有效值：true || false
   productionSourceMap: true,//生产环境下面开启sourceMap用于代码的调试true开启，false关闭
   devServer: {
+    open: true, //是否运行项目自动打开默认浏览器
+    host: "127.0.0.1",//主机，0.0.0.0支持局域网地址，可以用真机测试
+    port: 8080, //端口
+    https: false,//是否启动https
+    //配置跨域代理http,https
     // before(app){
     //   mock(app,'/book/home',homeData)
     //   mock(app,'/book/shelf',shelfData)
     //   mock(app,'/book/list',listData)
     //   mock(app,'/book/flat-list',flatListData)
     // },
-    open: true, //是否运行项目自动打开默认浏览器
-    host: "127.0.0.1",//主机，0.0.0.0支持局域网地址，可以用真机测试
-    port: 8080, //端口
-    https: false,//是否启动https
-    //配置跨域代理http,https
     proxy: {
       "/api": {
         target: "http://vueshop.glbuys.com/api",//接口地址
@@ -35,9 +35,14 @@ module.exports = {
           '^/api': ""
         }
       }
-    }
+    },
   },
   configureWebpack: {
+    performance:{
+      hints:'warning',
+      maxAssetSize:524288,
+      maxEntrypointSize:524288,
+    },
     devtool: 'source-map' //配置开发者环境的sourceMap用于代码调试
   }
 }

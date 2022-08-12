@@ -4,6 +4,7 @@ import { getBookmark, saveLocation, getBookShelf, saveBookShelf } from './localS
 import { gotoBookDetail, appendAddToShelf, computeId, removeAddFromShelf } from './store'
 import { shelf } from '../api/store'
 
+
 export const storeShelfMixin = {
   computed: {
     ...mapGetters([
@@ -35,6 +36,7 @@ export const storeShelfMixin = {
         this.setShelfCategory(categoryList)
       })
     },
+    //保存缓存
     getShelfList() {
       let shelfList = getBookShelf()
       if (!shelfList) {

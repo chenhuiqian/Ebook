@@ -6,6 +6,9 @@ import store from '../views/store/index.vue'
 import storehome from '../views/store/StoreHome.vue'
 import StoreList from '../views/store/StoreList.vue'
 import StoreDetail from '../views/store/StoreDetail.vue'
+import shelf from '../views/store/StoreShelf.vue'
+import category from '../views/store/StoreCategory.vue'
+import speaking from '../views/store/StoreSpeaking.vue'
 Vue.use(VueRouter)
 
 const routes = [
@@ -39,6 +42,18 @@ const routes = [
       {
         path: 'detail',
         component:StoreDetail
+      },
+      {
+        path: 'shelf',
+        component:shelf
+      },
+      {
+        path: 'category',
+        component:category
+      },
+      {
+        path: 'speaking',
+        component:speaking
       },
     ]
   },
